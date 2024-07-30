@@ -221,33 +221,33 @@ class User {
   }
 
   //adding/removing favorite stories
-  static async toggleFavorite(story) {
-    const token = currentUser.loginToken;
+  async toggleFavorite(story) {
+    const token = this.loginToken;
     //checking if story is in favorites
-    if (currentUser.favorites.findIndex(val => val.storyId === story.storyId) === -1){
+    if (this.favorites.findIndex(val => val.storyId === story.storyId) === -1){
       const response = await axios({
-        url: `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
         method: "POST",
         params: { token }
       });
       //updating currentUser favorites from API data
-      currentUser.favorites.length = 0;
+      this.favorites.length = 0;
       for (let fav of response.data.user.favorites){
         let storyObj = new Story(fav);
-        currentUser.favorites.push(storyObj);
+        this.favorites.push(storyObj);
       }
     }
     //deleting favorite, updating currentUser favorites
     else {
       const response = await axios({
-        url: `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
         method: "DELETE",
         params: { token }
       });
-      currentUser.favorites.length = 0;
+      this.favorites.length = 0;
       for (let fav of response.data.user.favorites){
         let storyObj = new Story(fav);
-        currentUser.favorites.push(storyObj);
+        this.favorites.push(storyObj);
       }
     } 
   }

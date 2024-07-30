@@ -95,7 +95,7 @@ function putFavoriteStoriesOnPage() {
   }
 }
 
-//getts list of current user's own submitted stories and adds to own stories list 
+//gets list of current user's own submitted stories and adds to own stories list 
 function putOwnStoriesOnPage() {
   console.debug("putFavoriteStoriesOnPage");
 
@@ -138,7 +138,7 @@ async function favoriteHandler(e) {
   e.preventDefault();
   const currStoryId = e.target.parentElement.parentElement.parentElement.id;
   const storyObj = storyList.stories.filter(val => val.storyId === currStoryId)[0];
-  await User.toggleFavorite(storyObj);
+  await currentUser.toggleFavorite(storyObj);
   e.target.className = e.target.className === "fa fa-star favorite" ? "fa fa-star" : "fa fa-star favorite";
   putStoriesOnPage();
 }
