@@ -80,8 +80,8 @@ class StoryList {
       data: {token : user.loginToken, story : storyObj}
     });
     let currStory = new Story(response.data.story);
-    this.stories.push(currStory);
-    currentUser.ownStories.push(currStory);
+    this.stories.unshift(currStory);
+    currentUser.ownStories.unshift(currStory);
     return currStory;
   }
 
